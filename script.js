@@ -32,7 +32,7 @@ function respond(text) {
 
     if (message.includes("hola")) {
 
-        response = "¡Hola! 😎 Soy Elias AI.";
+        response = "¡Hola! 😎 Soy Lunes.";
 
     } 
     
