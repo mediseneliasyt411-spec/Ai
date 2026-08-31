@@ -24,69 +24,70 @@ function addMessage(text, type) {
 }
 
 
-function respond(text) {
-
-    const message = text.toLowerCase();
-
-    let response;
-
-    if (message.includes("hola")) {
-
-        response = "¡Hola! 😎 Soy Lunes.";
-
-    } 
-    
-    else if (message.includes("cómo estás") ||
-             message.includes("como estas")) {
-
-        response = "Estoy funcionando perfectamente 🤖🔥";
-
-    } 
-    
-    else if (message.includes("tu nombre") ||
-             message.includes("quién eres") ||
-             message.includes("quien eres")) {
-
-        response = "Soy Elias AI, tu asistente personal.";
-
-    } 
-    
-    else if (message.includes("adiós") ||
-             message.includes("adios")) {
-
-        response = "¡Nos vemos! 👋";
-
-    } 
-    
-    else {
-
-        response =
-            "Todavía estoy aprendiendo 🧠. " +
-            "Pronto podremos conectarme a una IA real.";
-
-    }
-
-    setTimeout(() => {
-
-        addMessage(response, "ai");
-
-    }, 500);
-}
-
-
-function sendMessage() {
+async function sendMessage() {
 
     const text = input.value.trim();
 
-    if (text === "") {
-        return;
-    }
+    if (!text) return;
 
+    // Mostrar mensaje del usuario
     addMessage(text, "user");
 
     input.value = "";
 
-    respond(text);
+    // Mostrar "pensando..."
+    addMessage("Pensando... 🧠", "ai");
+
+    try {
+
+        const response = await fetch("/api/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                message: text
+            })
+
+        });
+
+        const data = await response.json();
+
+        // Eliminar "Pensando..."
+        const messages = document.querySelectorAll(".message");
+
+        messages[messages.length - 1].remove();
+
+        if (!response.ok) {
+
+            addMessage(
+                "Hubo un problema al contactar con mi cerebro 😵",
+                "ai"
+            );
+
+            console.error(data);
+
+            return;
+        }
+
+        addMessage(data.reply, "ai");
+
+    } catch (error) {
+
+        console.error(error);
+
+        const messages = document.querySelectorAll(".message");
+
+        messages[messages.length - 1].remove();
+
+        addMessage(
+            "No pude conectarme con el servidor. 😕",
+            "ai"
+        );
+    }
 }
 
 
@@ -96,9 +97,7 @@ button.addEventListener("click", sendMessage);
 input.addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
-
         sendMessage();
-
     }
 
 });
