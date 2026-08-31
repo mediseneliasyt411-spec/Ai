@@ -1,1 +1,230 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b12;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Aplicación */
+
+.app {
+    width: 100%;
+    max-width: 850px;
+    height: 90vh;
+    background: #101722;
+    border: 1px solid #263244;
+    border-radius: 20px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Encabezado */
+
+header {
+    height: 75px;
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    background: #111a27;
+    border-bottom: 1px solid #263244;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #1d2939;
+
+    font-size: 24px;
+}
+
+header h1 {
+    font-size: 21px;
+}
+
+header p {
+    margin-top: 3px;
+    color: #8995a7;
+    font-size: 13px;
+}
+
+/* Área del chat */
+
+#chat {
+    flex: 1;
+    padding: 25px;
+
+    overflow-y: auto;
+}
+
+/* Mensajes */
+
+.message {
+    display: flex;
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+    max-width: 80%;
+}
+
+.message.user {
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+
+/* Avatar */
+
+.avatar {
+    width: 36px;
+    height: 36px;
+
+    min-width: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #202c3e;
+
+    font-size: 18px;
+}
+
+/* Burbuja */
+
+.bubble {
+    padding: 13px 16px;
+
+    background: #192435;
+
+    border-radius: 15px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+}
+
+.user .bubble {
+    background: #3157d5;
+}
+
+/* Zona para escribir */
+
+.input-area {
+    display: flex;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    background: #111a27;
+
+    border-top: 1px solid #263244;
+}
+
+/* Caja de texto */
+
+input {
+    flex: 1;
+
+    padding: 14px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 12px;
+
+    background: #1b2637;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+input::placeholder {
+    color: #778397;
+}
+
+/* Botón */
+
+button {
+    width: 50px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #3157d5;
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #4269e8;
+}
+
+/* Barra de desplazamiento */
+
+#chat::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chat::-webkit-scrollbar-thumb {
+    background: #344156;
+    border-radius: 10px;
+}
+
+/* Celulares */
+
+@media (max-width: 600px) {
+
+    body {
+        align-items: stretch;
+    }
+
+    .app {
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    #chat {
+        padding: 18px;
+    }
+}
